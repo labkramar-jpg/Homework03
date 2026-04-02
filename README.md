@@ -15,3 +15,9 @@ pss aux --sort=-%cpu
 ```Output:
 Command 'pss' not found, but there are 18 similar ones
 ```
+
+## Команда для вывода топ 10 процессов текущего пользователя с одновременной записью в файл и выводом в терминал
+
+```bash
+ps -u "$USER" -o pid,%cpu,%mem,comm --sort=-%cpu | head -n 11 | tee top10_processes.txt
+```
