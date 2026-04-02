@@ -2,6 +2,7 @@
 
 ```bash
 ps aux --sort=-%cpu > processes_by_cpu.txt 2>/dev/null
+cat processes_by_cpu.txt
 ```
 
 
