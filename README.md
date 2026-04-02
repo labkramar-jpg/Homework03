@@ -21,3 +21,57 @@ Command 'pss' not found, but there are 18 similar ones
 ```bash
 ps -u "$USER" -o pid,%cpu,%mem,comm --sort=-%cpu | head -n 11 | tee top10_processes.txt
 ```
+
+## Сканирование с указанием портов
+
+```bash
+nmap -p 22,80,443 scanme.nmap.org
+```
+```Output:
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-04-02 14:54 -0400
+Nmap scan report for scanme.nmap.org (45.33.32.156)
+Host is up (0.058s latency).
+Other addresses for scanme.nmap.org (not scanned): 2600:3c01::f03c:91ff:fe18:bb2f
+
+PORT    STATE  SERVICE
+22/tcp  open   ssh
+80/tcp  open   http
+443/tcp closed https
+```
+
+## Сканирование диапазона портов
+
+```bash
+nmap -p 1-1000 scanme.nmap.org
+```
+```Output:
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-04-02 14:55 -0400
+Nmap scan report for scanme.nmap.org (45.33.32.156)
+Host is up (0.22s latency).
+Other addresses for scanme.nmap.org (not scanned): 2600:3c01::f03c:91ff:fe18:bb2f
+Not shown: 997 closed tcp ports (reset)
+PORT   STATE    SERVICE
+22/tcp open     ssh
+25/tcp filtered smtp
+80/tcp open     http
+```
+
+## Определение сервисов на открытых портах
+
+```bash
+nmap -sV scanme.nmap.org
+```
+```Output:
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-04-02 14:59 -0400
+Nmap scan report for scanme.nmap.org (45.33.32.156)
+Host is up (0.21s latency).
+Other addresses for scanme.nmap.org (not scanned): 2600:3c01::f03c:91ff:fe18:bb2f
+Not shown: 995 closed tcp ports (reset)
+PORT      STATE    SERVICE    VERSION
+22/tcp    open     ssh        OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 (Ubuntu Linux; protocol 2.0)
+25/tcp    filtered smtp
+80/tcp    open     http       Apache httpd 2.4.7 ((Ubuntu))
+9929/tcp  open     nping-echo Nping echo
+31337/tcp open     tcpwrapped
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+```
